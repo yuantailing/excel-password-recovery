@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import sys
 import xml.dom.minidom
 import zipfile
 
@@ -54,8 +55,7 @@ def xlsx_remove_protections(zipin, zipout):
 
 
 if __name__ == '__main__':
-    filenamein = raw_input('Input filename: ')
-    filenameout = raw_input('Output filename: ')
+    filenamein, filenameout = sys.argv[1:]
     with zipfile.ZipFile(filenamein, 'r') as zipin, \
             zipfile.ZipFile(filenameout, 'w') as zipout:
         xlsx_remove_protections(zipin, zipout)

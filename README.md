@@ -5,3 +5,24 @@
 > 1. 仅直接移除密码保护，不破解密码
 > 2. 只支持 `.xlsx` 格式文件，不支持`.xls`等其它格式
 > 3. 无法破解打开密码
+
+## Usage
+
+Install requirements
+
+```
+$ pip install -r requirements.txt
+```
+
+Run GUI
+
+```
+$ apt-get install python3-tk    # if you are using python3
+$ python src/gui-main.py
+```
+
+Run in command line:
+
+```
+$ python src/tools/recovery.py [input.xlsx] [output.xlsx]
+```

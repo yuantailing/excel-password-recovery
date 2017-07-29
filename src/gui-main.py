@@ -7,13 +7,11 @@ from __future__ import print_function
 
 import logging
 import os
-import StringIO
-import Tkinter as tk
-import tkFileDialog
-import tkMessageBox
 import traceback
 import zipfile
 
+from six import BytesIO
+from six.moves import tkinter as tk, tkinter_tkfiledialog, tkinter_messagebox
 from tools.recovery import xlsx_remove_protections
 
 
@@ -47,15 +45,16 @@ class App:
 
     def open(self):
         self.button_save.config(state=tk.DISABLED)
-        fp = tkFileDialog.askopenfile(mode='rb', initialdir=self.dirname,
-                                      **self.file_type_opt)
+        fp = tkinter_tkfiledialog.askopenfile(mode='rb',
+                                              initialdir=self.dirname,
+                                              **self.file_type_opt)
         if fp is None:
             return
         with fp:
             self.button_save.config(state=tk.DISABLED)
             self.dirname = os.path.dirname(fp.name)
             try:
-                s = StringIO.StringIO()
+                s = BytesIO()
                 with zipfile.ZipFile(fp, 'r') as zipin, \
                         zipfile.ZipFile(s, 'w') as zipout:
                     xlsx_remove_protections(zipin, zipout)
@@ -63,14 +62,15 @@ class App:
                 assert(len(self.output) > 0)
             except Exception as e:
                 logging.exception(e)
-                tkMessageBox.showinfo(title='Error',
-                                      message='Format not supported.')
+                tkinter_messagebox.showinfo(title='Error',
+                                            message='Format not supported.')
                 return
         self.button_save.config(state=tk.NORMAL)
 
     def save(self):
-        fp = tkFileDialog.asksaveasfile(mode='wb', initialdir=self.dirname,
-                                        **self.file_type_opt)
+        fp = tkinter_tkfiledialog.asksaveasfile(mode='wb',
+                                                initialdir=self.dirname,
+                                                **self.file_type_opt)
         if fp is None:
             return
         with fp:
