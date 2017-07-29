@@ -20,12 +20,10 @@ class App:
         frame = tk.Frame(master)
         frame.pack()
         tk.Label(frame, text='Remove excel (.xlsx) workbook protection, '
-                             'worksheet protections and read-only protec'
-                             'tion. \n'
-                             '[1] Note that open password cannot be remo'
-                             'ved. \n'
-                             '[2] .xls and other formats are not support'
-                             'ed.',
+                             'worksheet protections and read-only protection'
+                             '. \n'
+                             '[1] Open password cannot be removed. \n'
+                             '[2] .xls and other formats are not supported.',
                  compound=tk.LEFT, bitmap='questhead', wraplength=400, padx=10,
                  justify=tk.LEFT).pack(side=tk.TOP, padx=5)
         buttom_frame = tk.Frame(frame)

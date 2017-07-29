@@ -17,7 +17,7 @@ $ pip install -r requirements.txt
 Run GUI
 
 ```
-$ apt-get install python3-tk    # if you are using python3
+$ apt install python3-tk    # if you are using python3
 $ python src/gui-main.py
 ```
 
