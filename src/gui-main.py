@@ -6,6 +6,7 @@ from __future__ import division
 from __future__ import print_function
 
 import logging
+import os
 import StringIO
 import Tkinter as tk
 import tkFileDialog
@@ -38,6 +39,7 @@ class App:
                                      state=tk.DISABLED, command=self.save)
         self.button_save.pack(side=tk.LEFT)
         self.output = ''
+        self.dirname = '.'
         self.file_type_opt = {
             'defaultextension': '*.xlsx',
             'filetypes': (('Excel file', '*.xlsx'), ('All types', '*.*')),
@@ -45,10 +47,13 @@ class App:
 
     def open(self):
         self.button_save.config(state=tk.DISABLED)
-        fp = tkFileDialog.askopenfile(mode='rb', **self.file_type_opt)
+        fp = tkFileDialog.askopenfile(mode='rb', initialdir=self.dirname,
+                                      **self.file_type_opt)
         if fp is None:
             return
         with fp:
+            self.button_save.config(state=tk.DISABLED)
+            self.dirname = os.path.dirname(fp.name)
             try:
                 s = StringIO.StringIO()
                 with zipfile.ZipFile(fp, 'r') as zipin, \
@@ -64,10 +69,12 @@ class App:
         self.button_save.config(state=tk.NORMAL)
 
     def save(self):
-        fp = tkFileDialog.asksavefile(mode='wb', **self.file_type_opt)
+        fp = tkFileDialog.asksaveasfile(mode='wb', initialdir=self.dirname,
+                                        **self.file_type_opt)
         if fp is None:
             return
         with fp:
+            self.dirname = os.path.dirname(fp.name)
             fp.write(self.output)
 
 if __name__ == '__main__':
