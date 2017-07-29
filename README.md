@@ -26,3 +26,10 @@ Run in command line:
 ```
 $ python src/tools/recovery.py [input.xlsx] [output.xlsx]
 ```
+
+Distribute as `.exe` (only for Windows):
+
+```
+$ # install [py2exe](http://www.py2exe.org/)
+$ python src/setup.py py2exe
+```
